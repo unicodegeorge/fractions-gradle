@@ -22,26 +22,49 @@ public class Fraction implements IFraction {
 
     @Override
     public IFraction plus(IFraction other) {
-        throw new UnsupportedOperationException();
+        int finalNum = (getNumerator() *  other.getDenominator()) + (other.getNumerator() * getDenominator());
+        int finalDen = getDenominator() * other.getDenominator();
+
+        return createNormalised(finalNum, finalDen);
+
     }
 
     @Override
     public IFraction minus(IFraction other) {
-        throw new UnsupportedOperationException();
+        int finalNum = (getNumerator() *  other.getDenominator()) - (other.getNumerator() * getDenominator());
+        int finalDen = getDenominator() * other.getDenominator();
+
+        return createNormalised(finalNum, finalDen);
     }
 
     @Override
     public IFraction times(IFraction other) {
-        throw new UnsupportedOperationException();
+        int finalNum = getNumerator() * other.getNumerator();
+        int finalDen = getDenominator() * other.getDenominator();
+
+        return createNormalised(finalNum, finalDen);
     }
 
     @Override
     public IFraction dividedBy(IFraction other) {
-        throw new UnsupportedOperationException();
+        int finalNum = getNumerator() * other.getDenominator();
+        int finalDen = other.getNumerator() * getDenominator();
+
+        return createNormalised(finalNum, finalDen);
+    }
+
+
+    public static int getGcd(int n1, int n2) {
+        if (n2 == 0) {
+            return n1;
+        }
+        return  getGcd(n2, n1 % n2);
     }
 
     public static Fraction createNormalised(Integer numerator, Integer denominator) {
-        throw new UnsupportedOperationException();
+        var gcd = getGcd(numerator, denominator);
+
+        return new Fraction(numerator / gcd, denominator/ gcd);
     }
 
     @Override
